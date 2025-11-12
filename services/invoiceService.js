@@ -33,12 +33,10 @@ async function createInvoice(userId, clientName, amount, vatRate = 7.5) {
 
   generatePDFOnly(doc)
     .then((fallbackResult) => {
-      console.log(
-        `📄 PDF generated locally (fallback): ${fallbackResult.filename}`
-      );
+      console.log(`PDF generated locally: ${fallbackResult.filename}`);
     })
     .catch((fallbackError) => {
-      console.error(`❌ Even fallback PDF failed:`, fallbackError.message);
+      console.error(`PDF failed:`, fallbackError.message);
     });
 }
 

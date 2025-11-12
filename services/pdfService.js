@@ -43,7 +43,7 @@ async function generatePDFOnly(invoice) {
       doc.end();
 
       writeStream.on("finish", () => {
-        console.log(`✅ PDF generated: ${filename}`);
+        console.log(`PDF generated: ${filename}`);
         resolve({
           success: true,
           message: "PDF generated successfully",

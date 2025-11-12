@@ -12,7 +12,7 @@ require("dotenv").config();
 app.get("/", (req, res) => {
   res.json({
     message: "Finance API is running",
-    version: "1.0.0",
+    
     endpoints: {
       createInvoice: "POST /api/invoices",
       listInvoices: "GET /api/invoices",
