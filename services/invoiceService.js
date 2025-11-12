@@ -2,7 +2,7 @@ const { databases } = require("../config/appwrite");
 const { ID, Query } = require("node-appwrite");
 const { calculateVAT } = require("../utils/vatCalculator");
 const { generateInvoiceNumber } = require("../utils/invoiceGenerator");
-const { generateAndUploadPDF } = require("./pdfService");
+const { generatePDFOnly } = require("./pdfService");
 const { sendPaymentNotification } = require("./emailService");
 
 const DB_ID = process.env.APPWRITE_DATABASE_ID;
@@ -31,13 +31,15 @@ async function createInvoice(userId, clientName, amount, vatRate = 7.5) {
     invoiceData
   );
 
-  try {
-    await generateAndUploadPDF(doc);
-  } catch (pdfError) {
-    console.error("PDF generation failed:", pdfError.message);
-  }
-
-  return doc;
+  generatePDFOnly(doc)
+    .then((fallbackResult) => {
+      console.log(
+        `📄 PDF generated locally (fallback): ${fallbackResult.filename}`
+      );
+    })
+    .catch((fallbackError) => {
+      console.error(`❌ Even fallback PDF failed:`, fallbackError.message);
+    });
 }
 
 async function listInvoices(userId, status = null) {
