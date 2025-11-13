@@ -11,10 +11,15 @@ This project includes:
 
 ## Environment
 Copy `.env.example` to `.env` and fill in values.
-
+# QUICK NOTE
+Ensure headers is set to
+`Content-Type : application/json
+x-user-id : testuser123`
+for authorization 
 ## Endpoints
 - `POST /api/invoices` - create invoice (generates optional PDF)
-- `GET  /api/invoices?status=paid|unpaid` - list invoices
+- `GET  /api/invoices - list all invoices
+- `GET  /api/invoices?status=Paid|Unpaid` - filter invoices either paid or unpaid 
 - `PATCH /api/invoices/:id/pay` - mark invoice as paid (sends Appwrite email)
 - `GET  /api/invoices/summary` - get totals
 
